@@ -1,56 +1,135 @@
-# nct_distr
-This project's purpose: for managing data pipeline of psycotic active substances distribution
+# NCT Distribution Data Pipeline
 
-# Bacis requirements and installation
-This project is based on  [Jupyter lab](https://jupyter.org/) notebook and generally require for most operations.
-The installation for Jupyter lab should follow [Jupyter lab](https://jupyter.org/install).
+A data pipeline management system for psychotropic active substances distribution in Thailand.
 
-The other dependencies require for this project, Please refer to requirement.txt
-with general python dependecies installation
+## Purpose
 
-<code>!pip install -r requirements.txt </code>
+This project manages and analyzes data related to the distribution of controlled psychotropic substances, providing insights through data processing, aggregation, and visualization.
 
-<li>For colab notebook users, please follow:</li>
-<a>https://colab.research.google.com/</a>
+## Prerequisites
 
-with modification on [plotly.express](https://plotly.com/python/)
+### Core Requirements
 
-the line: <code>pio.renderers.default</code> can be omitted
+This project is built on [Jupyter Lab](https://jupyter.org/) and requires it for most operations.
 
-<li>For local machine users,</li>
-<code>pio.renderers.default = "browser"</code> is recommended. (Otherwise the file size will be very large)
+**Installation:**
+```bash
+pip install jupyterlab
+```
 
-# The data source
-Should be requested directly from [Narcotics revolving fund](https://nrf.fda.moph.go.th/)
-the important sources include:
-<li>Sale report</li> (based on the form: <a href="https://nrf.fda.moph.go.th/media.php?id=676326838452232192&name=%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B8%84%E0%B8%B3%E0%B8%82%E0%B8%AD%E0%B8%8B%E0%B8%B7%E0%B9%89%E0%B8%AD%20%E0%B8%82.%E0%B8%A7%E0%B8%88.2.pdf">[แบบ ข.วจ. 2]</a>)
-<li>Disburse report</li>
-<br>
-<li>Approval dataset should be requested from Pre-marketing group of Narcotics control division</li>
+For detailed installation instructions, visit the [Jupyter Lab Installation Guide](https://jupyter.org/install).
 
-# API endpoints
-<li>for nrf smart inventory endpoint should be from [Narcotics revolving fund](https://nrf.fda.moph.go.th/) as well.</li>
-<br>
-<li>hcodes endpoint can be found on <a>https://hcode.moph.go.th/</a></li>
+### Python Dependencies
 
-# Loading Dataset
-most of dataset using in this project are .csv files and can be loaded using <code>pd.read_csv()</code> with the dedicated dataframe variable names
-except for Approval Dataset which XML format is expected(namespaces were provided in notebook)
-<br>
+Install all required dependencies using:
+```bash
+pip install -r requirements.txt
+```
+
+### Platform-Specific Setup
+
+#### Google Colab Users
+1. Access [Google Colab](https://colab.research.google.com/)
+2. When using [Plotly Express](https://plotly.com/python/), you can omit the line:
+   ```python
+   pio.renderers.default
+   ```
+
+#### Local Machine Users
+For local installations, set the renderer to browser to reduce file size:
+```python
+pio.renderers.default = "browser"
+```
+
+## Data Sources
+
+All primary data should be requested from the [Narcotics Revolving Fund (NRF)](https://nrf.fda.moph.go.th/).
+
+### Required Datasets
+
+1. **Sales Report** - Form [ข.วจ. 2](https://nrf.fda.moph.go.th/media.php?id=676326838452232192&name=%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B8%84%E0%B8%B3%E0%B8%82%E0%B8%AD%E0%B8%8B%E0%B8%B7%E0%B9%89%E0%B8%AD%20%E0%B8%82.%E0%B8%A7%E0%B8%88.2.pdf)
+2. **Disbursement Report** Form [แบบ ร.ย.ส.2/ว.จ.2/เดือน,แบบ ร.ย.ส. 2/ว.จ. 2 – จ1](https://narcotic.fda.moph.go.th/for-entrepreneur/category/%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B8%9F%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%A1%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%87%E0%B8%B2%E0%B8%99-%E0%B8%A2%E0%B8%B2%E0%B9%80%E0%B8%AA%E0%B8%9E%E0%B8%95%E0%B8%B4%E0%B8%94/)
+3. **Approval Dataset** - Should be requested from the Pre-marketing Group of the Narcotics Control Division
+
+### API Endpoints
+- **NRF Smart Inventory**: endpoint should be requested from [Narcotics revolving fund](https://nrf.fda.moph.go.th/)
+- **Health Facility Codes (HCODE)**: please refer to [https://hcode.moph.go.th/](https://hcode.moph.go.th/)
+
+### Additional Resources
+
+- **GeoJSON files**: Available at [OpenGISData-Thailand](https://github.com/chingchai/OpenGISData-Thailand)
+  - Credit: [@chingchai](https://github.com/chingchai)
+
+## Loading Datasets
+
+Most datasets in this project are CSV files. Load them using:
+```python
+df = pd.read_csv('filename.csv')
+```
+**Note:** Dedicated dataframe variable names are recommended.
+
+### XML Files (Approval Dataset)
+The Approval Dataset uses XML format. Namespace handling is provided in the notebooks.
+
+### DateTime Processing
+Convert datetime fields using:
+```python
+df['SendReportDate'] = pd.to_datetime(df['SendReportDate'])
+```
 - geojson files can be downloaded or forked from <a>https://github.com/chingchai/OpenGISData-Thailand</a>
 credit to <a>https://github.com/chingchai</a>
 - datetime fields (e.g., SendReportDate) can be implied dtype to datetime[ns] by passing <code>pd.to_datetime()</code> method. Execept for <code>ce_report_month</code> which is calculated end-of-month offset, the calculation steps are provided within the relavant notebook sections.
 
+**Note:** For `ce_report_month` (calculated as end-of-month offset), refer to the calculation steps in the relevant notebook sections.
 
-# Navigating section
-<img width="1138" height="937" alt="image" src="https://github.com/user-attachments/assets/2cb3e7a6-e3dd-48be-b87d-bee017fd7cf6" />
-Running cell by cell is recommended. However, user can navigate only to see or use relavant sections by selecting Table of Content sections.
+## Usage
+### Navigation
+<!-- <img width="1138" height="937" alt="image" src="https://github.com/user-attachments/assets/2cb3e7a6-e3dd-48be-b87d-bee017fd7cf6" /> -->
+![Project Navigation](https://github.com/user-attachments/assets/2cb3e7a6-e3dd-48be-b87d-bee017fd7cf6)
 
-# Aggregating and Dimensional Reduction for Visualization
-Aggregations are provided as necessary based on previously insight finding.
+**Recommended Workflow:**
+- Run cells sequentially for complete analysis
+- Use the Table of Contents to jump to specific sections
+
+### Data Aggregation
+
+Aggregations are provided based on previous insight findings and analytical requirements.
 As is reference can be found on ...
 
 # Output file
 - All charts plotted with <code>plotly.express</code> can be exported using method <code>fig.write_html() </code>
 - All DataFrame can be exported to csv with df.to_csv() method utf-8 encoding by default is recommended
+
+## Output and Export
+
+### Exporting Visualizations
+Save Plotly charts as HTML:
+```python
+fig.write_html('output_chart.html')
+```
+
+### Exporting DataFrames
+Export DataFrames to CSV with UTF-8 encoding (recommended):
+```python
+df.to_csv('output_data.csv', encoding='utf-8', index=False)
+```
+
+## Project Structure
+
+```
+nct_distr/
+├── notebooks/          # Jupyter notebooks
+├── data/              # Data files (CSV, XML, GeoJSON)
+├── outputs/           # Generated charts and reports
+├── requirements.txt   # Python dependencies
+└── README.md         # This file
+```
+
+## Contributing
+
+For issues, questions, or contributions, please contact the project maintainer or submit an issue through the repository.
+
+## Contact
+
+[Konrawit Wetchakan](https://github.com/konrawit13)
 
