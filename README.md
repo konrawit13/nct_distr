@@ -78,7 +78,7 @@ df['SendReportDate'] = pd.to_datetime(df['SendReportDate'])
 ```
 - geojson files can be downloaded or forked from <a>https://github.com/chingchai/OpenGISData-Thailand</a>
 credit to <a>https://github.com/chingchai</a>
-- datetime fields (e.g., SendReportDate) can be implied dtype to datetime[ns] by passing <code>pd.to_datetime()</code> method. Execept for <code>ce_report_month</code> which is calculated end-of-month offset, the calculation steps are provided within the relavant notebook sections.
+- datetime fields (e.g., SendReportDate) can be implied dtype to datetime[ns] by passing <code>pd.to_datetime()</code> method.
 
 **Note:** For `ce_report_month` (calculated as end-of-month offset), refer to the calculation steps in the relevant notebook sections.
 
@@ -114,7 +114,7 @@ Export DataFrames to CSV with UTF-8 encoding (recommended):
 df.to_csv('output_data.csv', encoding='utf-8', index=False)
 ```
 
-## Project Structure
+## Recommended Project Structure
 
 ```
 nct_distr/
