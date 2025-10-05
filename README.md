@@ -1,6 +1,6 @@
 # NCT Distribution Data Pipeline
 
-A data pipeline management system for psychotropic active substances distribution in Thailand.
+A data pipeline management system for psychotropic active substances distribution's intelligence in Thailand.
 
 ## Purpose
 
